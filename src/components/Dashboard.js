@@ -15,22 +15,22 @@ const data = [
   {
     id: 1,
     label: "Total Interviews",
-    getValue: 6
+    getValue: getTotalInterviews
   },
   {
     id: 2,
     label: "Least Popular Time Slot",
-    getValue: "1pm"
+    getValue: getLeastPopularTimeSlot
   },
   {
     id: 3,
     label: "Most Popular Day",
-    getValue: "Wednesday"
+    getValue: getMostPopularDay
   },
   {
     id: 4,
     label: "Interviews Per Day",
-    getValue: "2.3"
+    getValue: getInterviewsPerDay
   }
 ];
 class Dashboard extends Component {
@@ -81,6 +81,10 @@ class Dashboard extends Component {
       }
     };
   }
+  
+  componentWillUnmount() {
+    this.socket.close();
+  }
 
   componentDidUpdate(previousProps, previousState) {
     if (previousState.focused !== this.state.focused) {
@@ -88,9 +92,6 @@ class Dashboard extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.socket.close();
-  }
 
   render() {
     const dashboardClasses = classnames("dashboard", {
